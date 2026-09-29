@@ -1054,6 +1054,13 @@ public class SyncReplParser
                                 pos.start += 2;
                                 continue;
                             }
+                            // Any other backslash is part of the value: slapd passes it
+                            // through unchanged in cn=config values (strtok_quote_ldif)
+                            else
+                            {
+                                v[current++] = c;
+                                pos.start++;
+                            }
                         }
                         // Any other char is part of a value
                         else
