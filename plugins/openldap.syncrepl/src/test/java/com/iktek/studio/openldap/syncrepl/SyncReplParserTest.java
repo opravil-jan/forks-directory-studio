@@ -761,4 +761,16 @@ public class SyncReplParserTest
         assertEquals( "(cn=a\\2ab)", reparsed.getFilter() );
         assertEquals( "cn=Smith\\, John,dc=example,dc=com", reparsed.getBindDn() );
     }
+
+
+    @Test
+    public void testTlsCacertDir() throws Exception
+    {
+        SyncReplParser parser = new SyncReplParser();
+        SyncRepl syncRepl = parser.parse( "rid=1 tls_cacertdir=/etc/openldap/certs" );
+
+        assertNotNull( syncRepl );
+        assertEquals( "/etc/openldap/certs", syncRepl.getTlsCacertDir() );
+        assertNull( syncRepl.getTlsCacert() );
+    }
 }

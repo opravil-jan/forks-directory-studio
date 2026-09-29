@@ -364,6 +364,15 @@ public class SyncReplParser
                 parseTlsKey( chars, pos, syncRepl, parserException );
             }
 
+            // tls_cacertdir (must be checked before its prefix tls_cacert)
+            else if ( Strings.areEquals( chars, pos.start, KEYWORD_TLS_CACERTDIR, false ) >= 0 )
+            {
+                foundAtLeastOneProperty = true;
+                pos.start += KEYWORD_TLS_CACERTDIR.length();
+
+                parseTlsCacertDir( chars, pos, syncRepl, parserException );
+            }
+
             // tls_cacert
             else if ( Strings.areEquals( chars, pos.start, KEYWORD_TLS_CACERT, false ) >= 0 )
             {
@@ -371,15 +380,6 @@ public class SyncReplParser
                 pos.start += KEYWORD_TLS_CACERT.length();
 
                 parseTlsCacert( chars, pos, syncRepl, parserException );
-            }
-
-            // tls_cacertdir
-            else if ( Strings.areEquals( chars, pos.start, KEYWORD_TLS_CACERTDIR, false ) >= 0 )
-            {
-                foundAtLeastOneProperty = true;
-                pos.start += KEYWORD_TLS_CACERTDIR.length();
-
-                parseTlsCacertDir( chars, pos, syncRepl, parserException );
             }
 
             // tls_reqcert
